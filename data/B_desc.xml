@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Sequence SYSTEM "SequenceDesc.dtd">
+<Sequence>
+    <Name>Modem_B</Name>
+    <Description>Modem B tone.</Description>
+    <Signal>
+        <Name>Modem_B</Name>
+        <Description>Modem B tone.</Description>
+        <SampleRate>16000</SampleRate>
+        <Duration>1000</Duration>
+        <Tone>
+            <amp>1.0</amp>
+            <freq>1200</freq>
+            <phase>0</phase>
+        </Tone>
+    </Signal>
+</Sequence>

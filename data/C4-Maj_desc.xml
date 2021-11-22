@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Sequence SYSTEM "SequenceDesc.dtd">
+<Sequence>
+    <Name>C4-Maj</Name>
+    <Description>Approximation of notes on a piano. C4 major scale.</Description>
+    <SampleRate>16000</SampleRate>
+
+    <Signal>
+        <Name>C4</Name>
+        <Description>Piano C4</Description>
+        <Duration>250</Duration>
+        <RiseFactor>10.0</RiseFactor>
+        <FallFactor>70.0</FallFactor>
+        <Tone>
+            <freq>261.63</freq>
+            <amp>0.5</amp>
+            <phase>0</phase>
+            <harmonics>2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17</harmonics>
+            <harmonicAmps>0.25119,0.00794,0.01585,0.03162,0.03162,0.02512,0.01000,0.00032,0.00316,0.00158,0.00158,0.00010,0.00158,0.00010,0.00003,0.00006</harmonicAmps>
+        </Tone>
+    </Signal>
+
+    <Silence>125</Silence>
+
+    <Signal>
+        <Name>D4</Name>
+        <Description>Piano D4</Description>
+        <Duration>250</Duration>
+        <RiseFactor>10.0</RiseFactor>
+        <FallFactor>70.0</FallFactor>
+        <Tone>
+            <freq>293.66</freq>
+            <amp>0.5</amp>
+            <phase>0</phase>
+            <harmonics>2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17</harmonics>
+            <harmonicAmps>0.25119,0.00794,0.01585,0.03162,0.03162,0.02512,0.01000,0.00032,0.00316,0.00158,0.00158,0.00010,0.00158,0.00010,0.00003,0.00006</harmonicAmps>
+        </Tone>
+    </Signal>
+
+    <Silence>125</Silence>
+
+    <Signal>
+        <Name>E4</Name>
+        <Description>Piano E4</Description>
+        <Duration>250</Duration>
+        <RiseFactor>10.0</RiseFactor>
+        <FallFactor>70.0</FallFactor>
+        <Tone>
+            <freq>329.63</freq>
+            <amp>0.5</amp>
+            <phase>0</phase>
+            <harmonics>2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17</harmonics>
+            <harmonicAmps>0.25119,0.00794,0.01585,0.03162,0.03162,0.02512,0.01000,0.00032,0.00316,0.00158,0.00158,0.00010,0.00158,0.00010,0.00003,0.00006</harmonicAmps>
+        </Tone>
+    </Signal>
+
+    <Silence>125</Silence>
+
+    <Signal>
+        <Name>F4</Name>
+        <Description>Piano F4</Description>
+        <Duration>250</Duration>
+        <RiseFactor>10.0</RiseFactor>
+        <FallFactor>70.0</FallFactor>
+        <Tone>
+            <freq>349.23</freq>
+            <amp>0.5</amp>
+            <phase>0</phase>
+            <harmonics>2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17</harmonics>
+            <harmonicAmps>0.25119,0.00794,0.01585,0.03162,0.03162,0.02512,0.01000,0.00032,0.00316,0.00158,0.00158,0.00010,0.00158,0.00010,0.00003,0.00006</harmonicAmps>
+        </Tone>
+    </Signal>
+
+    <Silence>125</Silence>
+
+    <Signal>
+        <Name>G4</Name>
+        <Description>Piano G4</Description>
+        <Duration>250</Duration>
+        <RiseFactor>10.0</RiseFactor>
+        <FallFactor>70.0</FallFactor>
+        <Tone>
+            <freq>392.00</freq>
+            <amp>0.5</amp>
+            <phase>0</phase>
+            <harmonics>2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17</harmonics>
+            <harmonicAmps>0.25119,0.00794,0.01585,0.03162,0.03162,0.02512,0.01000,0.00032,0.00316,0.00158,0.00158,0.00010,0.00158,0.00010,0.00003,0.00006</harmonicAmps>
+        </Tone>
+    </Signal>
+
+    <Silence>125</Silence>
+
+    <Signal>
+        <Name>A4</Name>
+        <Description>Piano A4</Description>
+        <Duration>250</Duration>
+        <RiseFactor>10.0</RiseFactor>
+        <FallFactor>70.0</FallFactor>
+        <Tone>
+            <freq>440.00</freq>
+            <amp>0.5</amp>
+            <phase>0</phase>
+            <harmonics>2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17</harmonics>
+            <harmonicAmps>0.25119,0.00794,0.01585,0.03162,0.03162,0.02512,0.01000,0.00032,0.00316,0.00158,0.00158,0.00010,0.00158,0.00010,0.00003,0.00006</harmonicAmps>
+        </Tone>
+    </Signal>
+
+    <Silence>125</Silence>
+
+    <Signal>
+        <Name>B4</Name>
+        <Description>Piano B4</Description>
+        <Duration>250</Duration>
+        <RiseFactor>10.0</RiseFactor>
+        <FallFactor>70.0</FallFactor>
+        <Tone>
+            <freq>493.88</freq>
+            <amp>0.5</amp>
+            <phase>0</phase>
+            <harmonics>2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17</harmonics>
+            <harmonicAmps>0.25119,0.00794,0.01585,0.03162,0.03162,0.02512,0.01000,0.00032,0.00316,0.00158,0.00158,0.00010,0.00158,0.00010,0.00003,0.00006</harmonicAmps>
+        </Tone>
+    </Signal>
+
+    <Silence>125</Silence>
+
+    <Signal>
+        <Name>C5</Name>
+        <Description>Piano C5</Description>
+        <Duration>250</Duration>
+        <RiseFactor>10.0</RiseFactor>
+        <FallFactor>70.0</FallFactor>
+        <Tone>
+            <freq>523.25</freq>
+            <amp>0.5</amp>
+            <phase>0</phase>
+            <harmonics>2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17</harmonics>
+            <harmonicAmps>0.25119,0.00794,0.01585,0.03162,0.03162,0.02512,0.01000,0.00032,0.00316,0.00158,0.00158,0.00010,0.00158,0.00010,0.00003,0.00006</harmonicAmps>
+        </Tone>
+    </Signal>
+
+</Sequence>

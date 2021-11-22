@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Define the XML document type of Sequence -->
+<!DOCTYPE Sequence [
+  <!ELEMENT Sequence (Name,Description,SampleRate,Sequence*,Signal*,DTMF*,Silence*)>
+
+  <!ELEMENT Name (#PCDATA)>
+  <!ELEMENT Description (#PCDATA)>
+  <!ELEMENT SampleRate (#PCDATA)>
+  <!ELEMENT Silence (#PCDATA)>
+
+  <!ELEMENT DTMF (#PCDATA,OnTime,OffTime)>
+    <!ELEMENT OnTime (#PCDATA)>
+    <!ELEMENT OffTime (#PCDATA)>
+
+  <!ELEMENT Signal (Duration?,Samples?,RiseFactor?,FallFactor?,Tone)>
+      <!ELEMENT Duration (#PCDATA)>         <!-- Duration: in milliseconds -->
+      <!ELEMENT Samples (#PCDATA)>          <!-- Number of samples (only if Duration not specified) -->
+      <!ELEMENT RiseFactor (#PCDATA)>       <!-- Rise and Fall factors: percentage of the duration -->
+      <!ELEMENT FallFactor (#PCDATA)>
+      <!ELEMENT Tone (amp,freq,phase,harmonics?,harmonicAmps?)>
+          <!ELEMENT amp (#PCDATA)>          <!-- Amplitude of fundamental frequency -->
+          <!ELEMENT freq (#PCDATA)>
+          <!ELEMENT phase (#PCDATA)>
+          <!ELEMENT harmonics (#PCDATA)>    <!-- harmonics: List of harmonics. 1 (the fundamental) is implied above -->
+          <!ELEMENT harmonicAmps (#PCDATA)> <!-- harmonics: List of harmonics' amplitudes -->
+]>
+<BODY></BODY>
