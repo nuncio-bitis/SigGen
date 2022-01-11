@@ -2,50 +2,7 @@
 
 ## Overview
 
-Program to create a sequence of signals based on an XML signal descriptor file.
-
-## Files
-
-```text
-SigGen
-  |-- data
-  |   |-- A_desc.xml
-  |   |-- B_desc.xml
-  |   |-- C4-Maj_desc.xml
-  |   |-- IC_desc.xml
-  |   |-- IC.xlsx
-  |   |-- LP_desc.xml
-  |   |-- PerfHi_desc.xml
-  |   |-- PerfHi2Even_desc.xml
-  |   |-- PerfHi3Odd_desc.xml
-  |   |-- PerfLow_desc.xml
-  |   |-- PerfMed_desc.xml
-  |   |-- Seq1_desc.xml
-  |   |-- Seq2_desc.xml
-  |   |-- SequenceDesc.dtd
-  |   |-- Sig1_desc.xml
-  |   |-- SIT_desc.xml
-  |   |-- VentHi1Odd_desc.xml
-  |   `-- VentHi2Even_desc.xml
-  |-- documents
-  |   |-- C4-ff-pp.gif
-  |   |-- C4-ff-pp.xlsx
-  |   |-- pitches.xlsx
-  |   |-- SequenceGenerator.drawio
-  |   `-- SequenceGenerator.png
-  |-- include
-  |   |-- DTMF.h
-  |   |-- Sequence.h
-  |   |-- SigGen.h
-  |   `-- Signal.h
-  |-- source
-  |   |-- DTMF.cpp
-  |   |-- Sequence.cpp
-  |   |-- SigGen.cpp
-  |   `-- Signal.cpp
-  `-- test
-      `-- test-SeqGen.sh
-```
+Program to create a waveform from a sequence of signals based on an XML signal descriptor file.
 
 ## External Dependencies
 
@@ -59,16 +16,42 @@ SigGen
 I created this project over years of working on software modems (softmodems), and then also needing to generate
 alarm/miscellaneous tones for devices (medical, ring tones, etc.)
 
-What I came up with was a way to generate a sequence of signals into a single raw file. The output files
-can be converted to WAV files for listening. Many of the sample sequences are from old modem signalling
-specifications, some are used to create the special telephone tones (like the one you hear when you dial
-a wrong number). Others are sample medical device tones based on the IEC 60601-1-8 guidelines.
+What I came up with was a way to generate a waveform from a sequence of signals into a single raw file.
+The output files can be converted to WAV files for listening. Many of the sample sequences are from old
+modem signalling specifications, some are used to create the special telephone tones (like the one you
+hear when you dial a wrong number). Others are sample medical device tones based on the IEC 60601-1-8
+guidelines.
 
+The program reads in an XML file that describes the entire waveform that will be generated.  
+It outputs the waveform data in two formats: float numbers in ASCII text (file.out),
+and 32-bit float data in binary (file.dat).
+
+### Architecture
+The following is a class diagram showing the software architecture:
 
 ![Sequence Generator Software Architecture](documents/SequenceGenerator.png)  
 
+### Waveform Definition
 
-![Sequence Definition](documents/SequenceDefinition.png)  
+A waveform in this context is defined as a sequence of signals, silence, DTMF sequence, and/or other sequences
+concatenated in the time domain.
+
+A sequence in general has a name and a description. The outermost sequence contains the overall sampling rate
+of the components of the waveform. This is used for everything contained within the sequence.
+
+A signal is defined as a list of sinusoids (tones) that are added together in amplitude.
+The signal as a name, description, duration (in milliseconds) or number of samples, a rise and fall time,
+and a list of tones.
+Each tone is described by a frquency, amplitude, phase, a list of harmonics, and a list of those harmonics' amplitudes.
+
+A DTMF sequence is what you think it is: a list of characters you'd find on a telephone. The DTMF sequence
+consists of the character string, and on (length of each tone) and off (silence between tones) times in milliseconds.
+
+The following are visual representations of sample waveform sequences:
+
+![Waveform Sequence Visual](documents/SequenceVisual-1.png)  
+
+![Waveform Sequence Visual](documents/SequenceVisual-2.png)  
 
 
 
