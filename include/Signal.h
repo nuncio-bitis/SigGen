@@ -1,18 +1,18 @@
-/* 
+/*
  * This file is part of the DataGatheringSystem distribution
  *   (https://github.com/nuncio-bitis/SigGen
  * Copyright (c) 2022 James P. Parziale.
- * 
- * This program is free software: you can redistribute it and/or modify  
- * it under the terms of the GNU General Public License as published by  
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, version 3.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 /*
@@ -42,14 +42,18 @@
 #define MAX_SIG 64
 
 #ifndef M_PI
-#define M_PI (2.0*asin(1.0))
+#define M_PI (2.0 * asin(1.0))
 #endif
 
-#define MIN(a,b) (a < b ? a : b)
-#define MAX(a,b) (a > b ? a : b)
-#define SWAP(a,b) tempr=(a);(a)=(b);(b)=tempr
+#define MIN(a, b) (a < b ? a : b)
+#define MAX(a, b) (a > b ? a : b)
+#define SWAP(a, b) \
+    tempr = (a);   \
+    (a) = (b);     \
+    (b) = tempr
 
-enum SampleRate {
+enum SampleRate
+{
     eSPS_7200  = 7200,
     eSPS_8000  = 8000,
     eSPS_9600  = 9600,
@@ -58,7 +62,7 @@ enum SampleRate {
     eSPS_22100 = 22100,
     eDefaultSampleRate = eSPS_9600,
     eSPS_FIRST = eSPS_7200,
-    eSPS_LAST = eSPS_22100,
+    eSPS_LAST  = eSPS_22100,
     eSPS_INVALID = 0
 };
 
@@ -77,7 +81,7 @@ public:
     std::string description() { return m_Description; };
     SampleRate sampleRate() { return m_SampleRate; };
     unsigned int numSamples() { return m_numSamples; };
-    unsigned int numTones()   { return m_numTones; };
+    unsigned int numTones() { return m_numTones; };
 
     int SetSampleRate(SampleRate Sr);
 
@@ -87,12 +91,13 @@ public:
     void printInfo();
 
 private:
-    struct SigDesc {
-      double amp;
-      double freq;
-      double phase;
-      std::vector<unsigned int> harmonics;
-      std::vector<double> harmonicAmps;
+    struct SigDesc
+    {
+        double amp;
+        double freq;
+        double phase;
+        std::vector<unsigned int> harmonics;
+        std::vector<double> harmonicAmps;
     };
 
     int LoadSeqDesc(tinyxml2::XMLElement *rootSig);

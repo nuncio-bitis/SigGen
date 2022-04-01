@@ -1,18 +1,18 @@
-/* 
+/*
  * This file is part of the DataGatheringSystem distribution
  *   (https://github.com/nuncio-bitis/SigGen
  * Copyright (c) 2022 James P. Parziale.
- * 
- * This program is free software: you can redistribute it and/or modify  
- * it under the terms of the GNU General Public License as published by  
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, version 3.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 /*
@@ -53,26 +53,31 @@ Sequence::~Sequence()
 {
     for (unsigned int i = 0; i < m_numSeqObjs; ++i)
     {
-        switch (m_Sequence[i].type) {
-        case eSeqType_Sequence: {
+        switch (m_Sequence[i].type)
+        {
+        case eSeqType_Sequence:
+        {
             Sequence *pSeq = static_cast<Sequence *>(m_Sequence[i].sequenceObj);
             delete pSeq;
             break;
         }
 
-        case eSeqType_Signal: {
+        case eSeqType_Signal:
+        {
             Signal *pSig = static_cast<Signal *>(m_Sequence[i].sequenceObj);
             delete pSig;
             break;
         }
 
-        case eSeqType_DTMF: {
+        case eSeqType_DTMF:
+        {
             DTMF *pDTMF = static_cast<DTMF *>(m_Sequence[i].sequenceObj);
             delete pDTMF;
             break;
         }
 
-        case eSeqType_Silence: {
+        case eSeqType_Silence:
+        {
             int *pDur = static_cast<int *>(m_Sequence[i].sequenceObj);
             delete pDur;
             break;
@@ -92,7 +97,7 @@ int Sequence::LoadFile(const char *seqFileName)
 
     // Check if file is good. tinyxml2 crashes if the file doesn't exist.
     std::ifstream f(seqFileName);
-    if (! f.good())
+    if (!f.good())
     {
         return EXIT_FAILURE;
     }
@@ -107,10 +112,10 @@ int Sequence::LoadFile(const char *seqFileName)
         return EXIT_FAILURE;
     }
 
-//    std::cout << "================================================================================" << std::endl;
-//    m_doc.Print();
-//    std::cout << "================================================================================" << std::endl;
-//    std::cout << std::endl;
+    //std::cout << "================================================================================" << std::endl;
+    //m_doc.Print();
+    //std::cout << "================================================================================" << std::endl;
+    //std::cout << std::endl;
 
     tinyxml2::XMLElement *root = m_doc.RootElement();
     std::string rootNodeName = root->Name();
@@ -131,14 +136,12 @@ int Sequence::LoadFile(const char *seqFileName)
             std::cerr << "ERROR: [" << __FUNCTION__ << "] The sequence description file did not specify a valid sample rate." << std::endl;
             return EXIT_FAILURE;
         }
-
     }
     else
     {
         std::cerr << "ERROR: [" << __FUNCTION__ << "] The Sequence class will only handle a sequence description file" << std::endl;
         return EXIT_FAILURE;
     }
-
 
     //*********************************
 
@@ -183,7 +186,7 @@ int Sequence::LoadSeqDesc(tinyxml2::XMLElement *rootSeq)
 
         if (childName.compare("SampleRate") == 0)
         {
-            (void) sscanf(child->GetText(), "%d", (unsigned int *)&m_SampleRate);
+            (void)sscanf(child->GetText(), "%d", (unsigned int *)&m_SampleRate);
         }
 
         else if (childName.compare("Signal") == 0)
@@ -216,7 +219,7 @@ int Sequence::LoadSeqDesc(tinyxml2::XMLElement *rootSeq)
 
         else if (childName.compare("DTMF") == 0)
         {
-            uint32_t on  = DTMF::cDefaultDuration;
+            uint32_t on = DTMF::cDefaultDuration;
             uint32_t off = DTMF::cDefaultDuration;
 
             // NOTE: If the digits text doesn't appear before OnTime and OffTime, digits will be set to NULL.
@@ -271,37 +274,42 @@ int Sequence::GenerateWaveform(std::vector<double> &data)
 {
     for (unsigned int i = 0; i < m_numSeqObjs; ++i)
     {
-        switch (m_Sequence[i].type) {
-        case eSeqType_Sequence: {
+        switch (m_Sequence[i].type)
+        {
+        case eSeqType_Sequence:
+        {
             Sequence *pSeq = static_cast<Sequence *>(m_Sequence[i].sequenceObj);
             std::cout << std::endl;
-            std::cout << "[" << std::setw(2) << (i+1) << "] Generate Sequence:" << std::endl;
+            std::cout << "[" << std::setw(2) << (i + 1) << "] Generate Sequence:" << std::endl;
             pSeq->printInfo();
             pSeq->GenerateWaveform(data);
             break;
         }
 
-        case eSeqType_Signal: {
+        case eSeqType_Signal:
+        {
             Signal *pSig = static_cast<Signal *>(m_Sequence[i].sequenceObj);
             std::cout << std::endl;
-            std::cout << "[" << std::setw(2) << (i+1) << "] Generate Signal:" << std::endl;
+            std::cout << "[" << std::setw(2) << (i + 1) << "] Generate Signal:" << std::endl;
             pSig->printInfo();
             pSig->GenerateSignal(data);
             break;
         }
 
-        case eSeqType_DTMF: {
+        case eSeqType_DTMF:
+        {
             DTMF *pDTMF = static_cast<DTMF *>(m_Sequence[i].sequenceObj);
-            std::cout << "[" << std::setw(2) << (i+1) << "] Generate DTMF '" << pDTMF->name() << "'" << std::endl;
+            std::cout << "[" << std::setw(2) << (i + 1) << "] Generate DTMF '" << pDTMF->name() << "'" << std::endl;
             pDTMF->GenerateData(data, m_SampleRate);
             break;
         }
 
-        case eSeqType_Silence: {
+        case eSeqType_Silence:
+        {
             int *pDur = static_cast<int *>(m_Sequence[i].sequenceObj);
             int dur = *pDur;
             std::cout << std::endl;
-            std::cout << "[" << std::setw(2) << (i+1) << "] Generate Silence: " << dur << " mS" << std::endl;
+            std::cout << "[" << std::setw(2) << (i + 1) << "] Generate Silence: " << dur << " mS" << std::endl;
             GenerateSilence(data, dur);
             break;
         }
@@ -354,6 +362,4 @@ void Sequence::printInfo()
     std::cout << "  Segments   : " << m_numSeqObjs << std::endl;
 }
 
-
 //*****************************************************************************
-

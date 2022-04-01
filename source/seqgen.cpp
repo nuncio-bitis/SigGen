@@ -1,18 +1,18 @@
-/* 
+/*
  * This file is part of the DataGatheringSystem distribution
  *   (https://github.com/nuncio-bitis/SigGen
  * Copyright (c) 2022 James P. Parziale.
- * 
- * This program is free software: you can redistribute it and/or modify  
- * it under the terms of the GNU General Public License as published by  
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, version 3.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 /*****************************************************************************
@@ -57,12 +57,13 @@ int main(int argc, char *argv[])
     //*************************************************************************
 
     std::cout << argv[0] << " Version " << seqgen_VERSION_MAJOR << "."
-              << seqgen_VERSION_MINOR << std::endl << std::endl;
+              << seqgen_VERSION_MINOR << std::endl
+              << std::endl;
 
     if (argc < 2)
     {
-        (void) fprintf(stderr, "ERROR: Not enough arguments.\n");
-        (void) fprintf(stderr, "Format: %s Sequence_Description_File\n", argv[0]);
+        (void)fprintf(stderr, "ERROR: Not enough arguments.\n");
+        (void)fprintf(stderr, "Format: %s Sequence_Description_File\n", argv[0]);
         return EXIT_FAILURE;
     }
 
@@ -143,13 +144,13 @@ int main(int argc, char *argv[])
 
     if ((f_sig = fopen(outFileName.c_str(), "w")) == NULL)
     {
-        (void) fprintf(stderr, "ERROR: Can't open output file: %s\n", outFileName.c_str());
+        (void)fprintf(stderr, "ERROR: Can't open output file: %s\n", outFileName.c_str());
         return EXIT_FAILURE;
     }
 
     if ((f_dat = fopen(rawFileName.c_str(), "wb")) == NULL)
     {
-        (void) fprintf(stderr, "ERROR: Can't open output file: %s\n", rawFileName.c_str());
+        (void)fprintf(stderr, "ERROR: Can't open output file: %s\n", rawFileName.c_str());
         return EXIT_FAILURE;
     }
 
@@ -158,8 +159,8 @@ int main(int argc, char *argv[])
     {
         SAMPLE_TYPE h = (SAMPLE_TYPE)waveformData[i];
 
-        (void) fprintf(f_sig, "%11.8f\n", h);
-        fwrite((const void *) &h, sizeof(h), 1, f_dat);
+        (void)fprintf(f_sig, "%11.8f\n", h);
+        fwrite((const void *)&h, sizeof(h), 1, f_dat);
     }
     fclose(f_sig);
     fclose(f_dat);
@@ -168,7 +169,7 @@ int main(int argc, char *argv[])
 
     std::cout << std::endl;
     std::cout << "Number of Samples:  " << waveformData.size() << " = ";
-    std::cout << (1000.0 * (SAMPLE_TYPE) waveformData.size() / (SAMPLE_TYPE) mySequence.sampleRate()) << " mS" << std::endl;
+    std::cout << (1000.0 * (SAMPLE_TYPE)waveformData.size() / (SAMPLE_TYPE)mySequence.sampleRate()) << " mS" << std::endl;
     std::cout << "Sample size:        " << (sizeof(SAMPLE_TYPE) * 8) << " bits, float" << std::endl;
 
     std::cout << "Output text file:   " << outFileName << std::endl;

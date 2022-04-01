@@ -1,34 +1,34 @@
-/* 
+/*
  * This file is part of the DataGatheringSystem distribution
  *   (https://github.com/nuncio-bitis/SigGen
  * Copyright (c) 2022 James P. Parziale.
- * 
- * This program is free software: you can redistribute it and/or modify  
- * it under the terms of the GNU General Public License as published by  
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, version 3.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include <cstdlib>
 #include <iostream>
-#include  <math.h>
+#include <math.h>
 
 #include "DTMF.h"
 
 #ifndef M_PI
-#define M_PI (2.0*asin(1.0))
+#define M_PI (2.0 * asin(1.0))
 #endif
 
 //*****************************************************************************
 
-DTMF::DTMF(char digit, uint32_t on, uint32_t off) :
-    m_dtmfDigit(digit), m_onDuration(on), m_offDuration(on), m_lowTone(0), m_highTone(0)
+DTMF::DTMF(char digit, uint32_t on, uint32_t off)
+    : m_dtmfDigit(digit), m_onDuration(on), m_offDuration(on), m_lowTone(0), m_highTone(0)
 {
     switch (digit)
     {

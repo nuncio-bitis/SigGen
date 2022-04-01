@@ -1,18 +1,18 @@
-/* 
+/*
  * This file is part of the DataGatheringSystem distribution
  *   (https://github.com/nuncio-bitis/SigGen
  * Copyright (c) 2022 James P. Parziale.
- * 
- * This program is free software: you can redistribute it and/or modify  
- * it under the terms of the GNU General Public License as published by  
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, version 3.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 /*
@@ -34,20 +34,20 @@
 
 //*****************************************************************************
 
-Signal::Signal() :
-        m_numSamples(0), m_duration(0),
-        m_RiseFactor(cRiseFallFactorDefault),
-        m_FallFactor(cRiseFallFactorDefault)
+Signal::Signal()
+    : m_numSamples(0), m_duration(0),
+      m_RiseFactor(cRiseFallFactorDefault),
+      m_FallFactor(cRiseFallFactorDefault)
 {
     memset(m_Signal, 0, sizeof(m_Signal));
 }
 
 //*****************************************************************************
 
-Signal::Signal(tinyxml2::XMLElement *sigTree) :
-        m_numSamples(0), m_duration(0),
-        m_RiseFactor(cRiseFallFactorDefault),
-        m_FallFactor(cRiseFallFactorDefault)
+Signal::Signal(tinyxml2::XMLElement *sigTree)
+    : m_numSamples(0), m_duration(0),
+      m_RiseFactor(cRiseFallFactorDefault),
+      m_FallFactor(cRiseFallFactorDefault)
 {
     memset(m_Signal, 0, sizeof(m_Signal));
 
@@ -55,7 +55,6 @@ Signal::Signal(tinyxml2::XMLElement *sigTree) :
     // Element is a signal description. Load it.
     (void)LoadSigDesc(sigTree);
 }
-
 
 //*****************************************************************************
 
@@ -71,7 +70,7 @@ int Signal::LoadFile(const char *sigFileName)
 
     // Check if file is good. tinyxml2 crashes if the file doesn't exist.
     std::ifstream f(sigFileName);
-    if (! f.good())
+    if (!f.good())
     {
         return EXIT_FAILURE;
     }
@@ -87,10 +86,10 @@ int Signal::LoadFile(const char *sigFileName)
         return EXIT_FAILURE;
     }
 
-//    std::cout << "================================================================================" << std::endl;
-//    m_doc.Print();
-//    std::cout << "================================================================================" << std::endl;
-//    std::cout << std::endl;
+    //std::cout << "================================================================================" << std::endl;
+    //m_doc.Print();
+    //std::cout << "================================================================================" << std::endl;
+    //std::cout << std::endl;
 
     tinyxml2::XMLElement *root = m_doc.RootElement();
     std::string rootNodeName = root->Name();
@@ -110,7 +109,6 @@ int Signal::LoadFile(const char *sigFileName)
         std::cerr << "ERROR: [" << __FUNCTION__ << "] The Signal class will only handle a signal description file" << std::endl;
         return EXIT_FAILURE;
     }
-
 
     //*********************************
 
@@ -168,7 +166,7 @@ int Signal::LoadSigDesc(tinyxml2::XMLElement *rootSig)
 
         else if (childName.compare("Samples") == 0)
         {
-            (void) sscanf(child->GetText(), "%d", &m_numSamples);
+            (void)sscanf(child->GetText(), "%d", &m_numSamples);
             // Only allow one to be specified: number of samples or milliseconds
             m_duration = 0;
         }
@@ -177,11 +175,11 @@ int Signal::LoadSigDesc(tinyxml2::XMLElement *rootSig)
         {
             // Expressed in percent (e.g. 20.5 for 20.5% => factor of 0.205)
             m_RiseFactor = std::stod(child->GetText()) / 100.0;
-            if ( ((m_RiseFactor - cRiseFallFactorMin) < 0) ||
-                 ((cRiseFallFactorMax - m_RiseFactor) < 0) )
+            if (((m_RiseFactor - cRiseFallFactorMin) < 0) ||
+                ((cRiseFallFactorMax - m_RiseFactor) < 0))
             {
                 std::cerr << "ERROR: [" << __FUNCTION__ << "] Bad rise/fall factor specified: "
-                        << (m_RiseFactor * 100.0) << "%" << std::endl;
+                          << (m_RiseFactor * 100.0) << "%" << std::endl;
                 m_RiseFactor = cRiseFallFactorDefault;
             }
         }
@@ -190,11 +188,11 @@ int Signal::LoadSigDesc(tinyxml2::XMLElement *rootSig)
         {
             // Expressed in percent (e.g. 20.5 for 20.5% => factor of 0.205)
             m_FallFactor = std::stod(child->GetText()) / 100.0;
-            if ( ((m_FallFactor - cRiseFallFactorMin) < 0) ||
-                 ((cRiseFallFactorMax - m_FallFactor) < 0) )
+            if (((m_FallFactor - cRiseFallFactorMin) < 0) ||
+                ((cRiseFallFactorMax - m_FallFactor) < 0))
             {
                 std::cerr << "ERROR: [" << __FUNCTION__ << "] Bad rise/fall factor specified: "
-                        << (m_FallFactor * 100.0) << "%" << std::endl;
+                          << (m_FallFactor * 100.0) << "%" << std::endl;
                 m_FallFactor = cRiseFallFactorDefault;
             }
         }
@@ -215,10 +213,10 @@ int Signal::LoadSigDesc(tinyxml2::XMLElement *rootSig)
             if (attrHarmonics != NULL)
             {
                 std::stringstream ss(attrHarmonics->GetText());
-                while( ss.good() )
+                while (ss.good())
                 {
                     std::string substr;
-                    std::getline( ss, substr, ',' );
+                    std::getline(ss, substr, ',');
                     m_Signal[m_numTones].harmonics.push_back(std::stoi(substr));
                 }
             }
@@ -226,19 +224,20 @@ int Signal::LoadSigDesc(tinyxml2::XMLElement *rootSig)
             if (attrHarmonicAmps != NULL)
             {
                 std::stringstream ss(attrHarmonicAmps->GetText());
-                while( ss.good() )
+                while (ss.good())
                 {
                     std::string substr;
-                    std::getline( ss, substr, ',' );
+                    std::getline(ss, substr, ',');
                     m_Signal[m_numTones].harmonicAmps.push_back(std::stod(substr));
                 }
             }
             // Error if different number of each
             if (m_Signal[m_numTones].harmonics.size() != m_Signal[m_numTones].harmonicAmps.size())
             {
-                std::cerr << "[" << __FUNCTION__ << "] ERROR: " << "Number of harmonics(" << m_Signal[m_numTones].harmonics.size()
-                        << ") doesn't match number of amplitudes(" << m_Signal[m_numTones].harmonicAmps.size()
-                        << ")" << std::endl;
+                std::cerr << "[" << __FUNCTION__ << "] ERROR: "
+                          << "Number of harmonics(" << m_Signal[m_numTones].harmonics.size()
+                          << ") doesn't match number of amplitudes(" << m_Signal[m_numTones].harmonicAmps.size()
+                          << ")" << std::endl;
                 std::cerr << "\t    Signal: " << m_SigName << ", Freq: " << m_Signal[m_numTones].freq << std::endl;
                 std::cerr << std::endl;
                 m_Signal[m_numTones].harmonics.clear();
@@ -366,7 +365,7 @@ int Signal::GenerateSignal(std::vector<double> &data)
             for (unsigned int k = 0; k < m_Signal[j].harmonics.size(); k++)
             {
                 h += m_Signal[j].harmonicAmps[k] * riseFallAmp *
-                        sin(m_Signal[j].harmonics[k] * m_Signal[j].freq * x + phase);
+                     sin(m_Signal[j].harmonics[k] * m_Signal[j].freq * x + phase);
             }
         }
 
@@ -401,7 +400,7 @@ int Signal::GenerateSignal(std::vector<double> &data)
 
         data.push_back(h);
     }
-    printf("  Max Amplitude = %.4f (%.4f dB)\n", max, 10 * log(max)/log(10));
+    printf("  Max Amplitude = %.4f (%.4f dB)\n", max, 10 * log(max) / log(10));
 
     return EXIT_SUCCESS;
 }
@@ -454,12 +453,13 @@ void Signal::printInfo()
     printf("  Maximum amplitude: %.2f\n", m_maxAmp);
 
     std::cout << "  Tones:" << std::endl;
-    for (unsigned int i = 0; i < m_numTones; ++i) {
-        (void) printf("    %3d | %4.2f %7.2f %.2f, Harmonics: ", i + 1,
-                m_Signal[i].amp, m_Signal[i].freq, m_Signal[i].phase);
+    for (unsigned int i = 0; i < m_numTones; ++i)
+    {
+        (void)printf("    %3d | %4.2f %7.2f %.2f, Harmonics: ", i + 1,
+                     m_Signal[i].amp, m_Signal[i].freq, m_Signal[i].phase);
         for (unsigned int j = 0; j < m_Signal[i].harmonics.size(); j++)
         {
-            (void) printf("%d@%4.2f  ", m_Signal[i].harmonics[j], m_Signal[i].harmonicAmps[j]);
+            (void)printf("%d@%4.2f  ", m_Signal[i].harmonics[j], m_Signal[i].harmonicAmps[j]);
         }
         std::cout << std::endl;
     }
